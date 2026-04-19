@@ -1,5 +1,4 @@
 using UnityEngine;
-
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class BallShotTracker : MonoBehaviour
@@ -10,6 +9,7 @@ public class BallShotTracker : MonoBehaviour
     [SerializeField] private Transform ballSpawnPoint;
     [SerializeField] private ShotResultUI shotResultUI;
     [SerializeField] private ShotLogger shotLogger;
+    [SerializeField] private TwoHandBasketballGrab twoHandGrab;
 
     [Header("Ayarlar")]
     [SerializeField] private float releaseSampleDelay = 0.02f;
@@ -46,6 +46,9 @@ public class BallShotTracker : MonoBehaviour
         if (grabInteractable == null)
             grabInteractable = GetComponent<XRGrabInteractable>();
 
+        if (twoHandGrab == null)
+            twoHandGrab = GetComponent<TwoHandBasketballGrab>();
+
         startPosition = transform.position;
         startRotation = transform.rotation;
     }
@@ -60,10 +63,21 @@ public class BallShotTracker : MonoBehaviour
             PrepareForNewAttempt();
         }
 
-        // Top bırakıldığında bir sonraki fizik adımında hız ve açı örneklemesi yapacağız.
+        // Top bırakıldığında her zaman şut başlatma.
+        // Sadece TwoHandBasketballGrab bunu geçerli bir şut bırakışı olarak işaretlediyse başlat.
         if (wasHeldLastFrame && !isHeld)
         {
-            BeginReleaseSampling();
+            bool validShotRelease = true;
+
+            if (twoHandGrab != null)
+            {
+                validShotRelease = twoHandGrab.ConsumeValidShotRelease();
+            }
+
+            if (validShotRelease)
+            {
+                BeginReleaseSampling();
+            }
         }
 
         wasHeldLastFrame = isHeld;
@@ -93,7 +107,8 @@ public class BallShotTracker : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Top bırakıldıktan sonra bir fizik adımı bekleyerek daha doğru hız verisi alıyoruz.
+        // Top bırakıldıktan sonra kısa bir fizik beklemesi yaparak
+        // daha stabil hız verisi alıyoruz.
         if (releasePending)
         {
             releaseWaitTimer += Time.fixedDeltaTime;
@@ -107,7 +122,6 @@ public class BallShotTracker : MonoBehaviour
 
     private void PrepareForNewAttempt()
     {
-        // Önceki atıştan kalan beklemeleri temizle.
         waitingRespawn = false;
         respawnTimer = 0f;
 
@@ -121,6 +135,7 @@ public class BallShotTracker : MonoBehaviour
 
         releaseSpeed = 0f;
         releaseAngle = 0f;
+
         firstHitObject = "Yok";
         finalResult = "Yok";
 
@@ -169,7 +184,7 @@ public class BallShotTracker : MonoBehaviour
 
         string hitName = GetHitName(collision.collider);
 
-        // Sadece istediğimiz yüzeylerden biriyse ilk temas bilgisi kaydedilir.
+        // Sadece istediğimiz yüzeylerden biriyse ilk temas bilgisini kaydet.
         if (firstHitObject == "Yok" && hitName != "Yok")
         {
             firstHitObject = hitName;
@@ -247,6 +262,7 @@ public class BallShotTracker : MonoBehaviour
     {
         waitingRespawn = false;
         respawnTimer = 0f;
+
         releasePending = false;
         releaseWaitTimer = 0f;
 
