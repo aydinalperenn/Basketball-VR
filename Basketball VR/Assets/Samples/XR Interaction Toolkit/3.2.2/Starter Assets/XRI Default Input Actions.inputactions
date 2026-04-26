@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "XRI Default Input Actions",
     "maps": [
         {
@@ -711,7 +712,7 @@
                     "name": "Teleport Select",
                     "type": "Button",
                     "id": "02e43582-8973-4940-af06-dff6158e3df2",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -720,7 +721,7 @@
                     "name": "Teleport Mode Activate",
                     "type": "Button",
                     "id": "a6c7231d-c55d-4dd4-9e87-877bb5522ef5",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -729,7 +730,7 @@
                     "name": "Teleport Mode Cancel",
                     "type": "Button",
                     "id": "d587b60c-39a0-4365-8075-477ce484ba0f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -850,17 +851,6 @@
                     "id": "62690862-4688-4010-975b-b3d9c6062157",
                     "path": "<XRController>{RightHand}/Primary2DAxis",
                     "interactions": "Sector(directions=1)",
-                    "processors": "",
-                    "groups": "Generic XR Controller",
-                    "action": "Teleport Mode Activate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "90efd65e-3290-4798-af15-21ab4d7848b5",
-                    "path": "<XRController>{RightHand}/primaryButton",
-                    "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Teleport Mode Activate",
