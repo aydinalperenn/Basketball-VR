@@ -1,15 +1,27 @@
 using UnityEngine;
-
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class BallShotTracker : MonoBehaviour
 {
+    private struct HitCandidate
+    {
+        public bool valid;
+        public int frameNumber;
+        public float distanceToBallCenterSqr;
+        public string hitObject;
+        public string hitRegionDisplay;
+        public string hitRegionCsv;
+        public string colliderName;
+        public Vector3 worldPoint;
+    }
+
     [Header("Referanslar")]
     [SerializeField] private Rigidbody ballRigidbody;
     [SerializeField] private XRGrabInteractable grabInteractable;
     [SerializeField] private Transform ballSpawnPoint;
     [SerializeField] private ShotResultUI shotResultUI;
     [SerializeField] private ShotLogger shotLogger;
+    [SerializeField] private HitMarkerFeedback hitMarkerFeedback;
 
     [Header("Ayarlar")]
     [SerializeField] private float releaseSampleDelay = 0.02f;
@@ -29,14 +41,21 @@ public class BallShotTracker : MonoBehaviour
 
     private float releaseSpeed;
     private float releaseAngle;
-
-    private string firstHitObject = "Yok";
-    private string finalResult = "Yok";
-
     private int shotId = 0;
 
     private Vector3 startPosition;
     private Quaternion startRotation;
+
+    private bool firstHitCommitted;
+    private string firstHitObject = "Yok";
+    private string firstHitRegionDisplay = "Yok";
+    private string firstHitRegionCsv = "Yok";
+    private string firstHitColliderName = "Yok";
+    private Vector3 firstHitWorldPosition;
+    private bool hasFirstHitWorldPosition;
+
+    private bool hasPendingHit;
+    private HitCandidate pendingHit;
 
     private void Awake()
     {
@@ -54,13 +73,11 @@ public class BallShotTracker : MonoBehaviour
     {
         bool isHeld = grabInteractable != null && grabInteractable.isSelected;
 
-        // Top yeni tutulduğunda eski atış bilgilerini temizle.
         if (!wasHeldLastFrame && isHeld)
         {
             PrepareForNewAttempt();
         }
 
-        // Top bırakıldığında bir sonraki fizik adımında hız ve açı örneklemesi yapacağız.
         if (wasHeldLastFrame && !isHeld)
         {
             BeginReleaseSampling();
@@ -68,7 +85,8 @@ public class BallShotTracker : MonoBehaviour
 
         wasHeldLastFrame = isHeld;
 
-        // Aktif atışın süresini takip et.
+        CommitPendingHitIfReady();
+
         if (shotActive && !shotFinished)
         {
             shotTimer += Time.deltaTime;
@@ -79,7 +97,6 @@ public class BallShotTracker : MonoBehaviour
             }
         }
 
-        // Atış bittikten sonra topu tekrar spawn noktasına gönder.
         if (waitingRespawn)
         {
             respawnTimer += Time.deltaTime;
@@ -93,7 +110,6 @@ public class BallShotTracker : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Top bırakıldıktan sonra bir fizik adımı bekleyerek daha doğru hız verisi alıyoruz.
         if (releasePending)
         {
             releaseWaitTimer += Time.fixedDeltaTime;
@@ -107,7 +123,6 @@ public class BallShotTracker : MonoBehaviour
 
     private void PrepareForNewAttempt()
     {
-        // Önceki atıştan kalan beklemeleri temizle.
         waitingRespawn = false;
         respawnTimer = 0f;
 
@@ -121,8 +136,17 @@ public class BallShotTracker : MonoBehaviour
 
         releaseSpeed = 0f;
         releaseAngle = 0f;
+
+        firstHitCommitted = false;
         firstHitObject = "Yok";
-        finalResult = "Yok";
+        firstHitRegionDisplay = "Yok";
+        firstHitRegionCsv = "Yok";
+        firstHitColliderName = "Yok";
+        firstHitWorldPosition = Vector3.zero;
+        hasFirstHitWorldPosition = false;
+
+        hasPendingHit = false;
+        pendingHit = default;
 
         if (shotResultUI != null)
         {
@@ -141,12 +165,10 @@ public class BallShotTracker : MonoBehaviour
         releasePending = false;
         releaseWaitTimer = 0f;
 
+        // Eğer Unity sürümünde velocity kullanılıyorsa bunu velocity yap
         Vector3 velocity = ballRigidbody.linearVelocity;
 
-        // Elden çıktığı andaki hız
         releaseSpeed = velocity.magnitude;
-
-        // Elden çıktığı andaki açı
         releaseAngle = CalculateReleaseAngle(velocity);
 
         shotId++;
@@ -167,33 +189,132 @@ public class BallShotTracker : MonoBehaviour
         if (!shotActive || shotFinished)
             return;
 
-        string hitName = GetHitName(collision.collider);
+        BallHitRegion hitRegion = collision.collider.GetComponentInParent<BallHitRegion>();
 
-        // Sadece istediğimiz yüzeylerden biriyse ilk temas bilgisi kaydedilir.
-        if (firstHitObject == "Yok" && hitName != "Yok")
+        string hitObject = "";
+        string regionDisplay = "";
+        string regionCsv = "";
+        string colliderName = collision.collider.name;
+
+        if (hitRegion != null)
         {
-            firstHitObject = hitName;
+            hitObject = hitRegion.HitObject;
+            regionDisplay = hitRegion.DisplayName;
+            regionCsv = hitRegion.CsvRegionName;
+        }
+        else
+        {
+            // Region scripti yoksa ama zeminse fallback
+            if (HasTagInParents(collision.collider.transform, "Floor"))
+            {
+                hitObject = "Zemin";
+                regionDisplay = "Zemin";
+                regionCsv = "Floor";
+            }
+            else
+            {
+                return;
+            }
         }
 
-        // Top zemine değdiyse ve henüz sayı olmadıysa atışı kaçtı olarak bitir.
-        if (!scored && hitName == "Zemin")
+        Vector3 bestHitPoint = GetBestContactPointClosestToBallCenter(collision);
+        float distanceSqr = (bestHitPoint - transform.position).sqrMagnitude;
+
+        HitCandidate candidate = new HitCandidate
         {
+            valid = true,
+            frameNumber = Time.frameCount,
+            distanceToBallCenterSqr = distanceSqr,
+            hitObject = hitObject,
+            hitRegionDisplay = regionDisplay,
+            hitRegionCsv = regionCsv,
+            colliderName = colliderName,
+            worldPoint = bestHitPoint
+        };
+
+        if (!firstHitCommitted)
+        {
+            if (!hasPendingHit)
+            {
+                hasPendingHit = true;
+                pendingHit = candidate;
+            }
+            else
+            {
+                // Aynı frame içinde birden fazla collider geldiyse top merkezine en yakın olanı al
+                if (candidate.frameNumber == pendingHit.frameNumber)
+                {
+                    if (candidate.distanceToBallCenterSqr < pendingHit.distanceToBallCenterSqr)
+                    {
+                        pendingHit = candidate;
+                    }
+                }
+            }
+        }
+
+        // Eğer zemin teması geldiyse atışı kaçtı olarak bitir
+        if (!scored && hitObject == "Zemin")
+        {
+            CommitPendingHitNow();
             FinishShot(false);
         }
     }
 
-    private string GetHitName(Collider otherCollider)
+    private Vector3 GetBestContactPointClosestToBallCenter(Collision collision)
     {
-        if (HasTagInParents(otherCollider.transform, "Rim"))
-            return "Pota Çemberi";
+        ContactPoint[] contacts = collision.contacts;
 
-        if (HasTagInParents(otherCollider.transform, "Backboard"))
-            return "Panya";
+        if (contacts == null || contacts.Length == 0)
+            return collision.collider.bounds.ClosestPoint(transform.position);
 
-        if (HasTagInParents(otherCollider.transform, "Floor"))
-            return "Zemin";
+        Vector3 bestPoint = contacts[0].point;
+        float bestDistance = (bestPoint - transform.position).sqrMagnitude;
 
-        return "Yok";
+        for (int i = 1; i < contacts.Length; i++)
+        {
+            float distance = (contacts[i].point - transform.position).sqrMagnitude;
+
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                bestPoint = contacts[i].point;
+            }
+        }
+
+        return bestPoint;
+    }
+
+    private void CommitPendingHitIfReady()
+    {
+        if (firstHitCommitted || !hasPendingHit)
+            return;
+
+        // Bir frame geçince pending hit'i kesinleştir
+        if (Time.frameCount > pendingHit.frameNumber)
+        {
+            CommitPendingHitNow();
+        }
+    }
+
+    private void CommitPendingHitNow()
+    {
+        if (firstHitCommitted || !hasPendingHit)
+            return;
+
+        firstHitCommitted = true;
+        firstHitObject = pendingHit.hitObject;
+        firstHitRegionDisplay = pendingHit.hitRegionDisplay;
+        firstHitRegionCsv = pendingHit.hitRegionCsv;
+        firstHitColliderName = pendingHit.colliderName;
+        firstHitWorldPosition = pendingHit.worldPoint;
+        hasFirstHitWorldPosition = true;
+
+        if (hitMarkerFeedback != null)
+        {
+            hitMarkerFeedback.ShowMarker(firstHitWorldPosition, firstHitRegionDisplay);
+        }
+
+        hasPendingHit = false;
     }
 
     private bool HasTagInParents(Transform current, string targetTag)
@@ -215,6 +336,7 @@ public class BallShotTracker : MonoBehaviour
             return;
 
         scored = true;
+        CommitPendingHitNow();
         FinishShot(true);
     }
 
@@ -223,20 +345,42 @@ public class BallShotTracker : MonoBehaviour
         if (shotFinished)
             return;
 
+        CommitPendingHitNow();
+
         shotFinished = true;
         shotActive = false;
         scored = isScore;
 
-        finalResult = isScore ? "Sayı" : "Kaçtı";
+        string finalResult = isScore ? "Sayı" : "Kaçtı";
+
+        string displayHitObject = firstHitObject == "Yok" ? "Temassız" : firstHitObject;
+        string displayHitRegion = firstHitRegionDisplay == "Yok" ? displayHitObject : firstHitRegionDisplay;
 
         if (shotResultUI != null)
         {
-            shotResultUI.ShowShotResult(releaseSpeed, releaseAngle, isScore, firstHitObject);
+            shotResultUI.ShowShotResult(
+                releaseSpeed,
+                releaseAngle,
+                isScore,
+                displayHitObject,
+                displayHitRegion
+            );
         }
 
         if (shotLogger != null)
         {
-            shotLogger.LogShot(shotId, releaseSpeed, releaseAngle, isScore, firstHitObject, finalResult);
+            shotLogger.LogShot(
+                shotId,
+                releaseSpeed,
+                releaseAngle,
+                isScore,
+                displayHitObject,
+                firstHitRegionCsv == "Yok" ? displayHitObject : firstHitRegionCsv,
+                firstHitColliderName,
+                firstHitWorldPosition,
+                hasFirstHitWorldPosition,
+                finalResult
+            );
         }
 
         waitingRespawn = true;
@@ -247,6 +391,7 @@ public class BallShotTracker : MonoBehaviour
     {
         waitingRespawn = false;
         respawnTimer = 0f;
+
         releasePending = false;
         releaseWaitTimer = 0f;
 

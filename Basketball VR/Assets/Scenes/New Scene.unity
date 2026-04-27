@@ -377,6 +377,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 3649692}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6431630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6431631}
+  - component: {fileID: 6431632}
+  m_Layer: 6
+  m_Name: Wall_2
+  m_TagString: Floor
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6431631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6431630}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.7071079}
+  m_LocalPosition: {x: -10.000005, y: 0.388, z: 12.470947}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1109745345}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!65 &6431632
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6431630}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 24.657928, y: 9.210299, z: 1}
+  m_Center: {x: 1.5290527, y: 4.1051493, z: 0}
 --- !u!1001 &6532164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -549,6 +602,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 6717086}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7339727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7339728}
+  - component: {fileID: 7339729}
+  - component: {fileID: 7339730}
+  m_Layer: 0
+  m_Name: Backboard_8
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7339728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339727}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.813, z: -1.296}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1829399391}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7339729
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339727}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10502813, y: 0.4134493, z: 0.5000477}
+  m_Center: {x: 0.10023388, y: 0.32588792, z: 0.6471164}
+--- !u!114 &7339730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 1
+  displayName: Panya Sag Alt
+  csvRegionName: Backboard_BottomRight
+  hitObjectOverride: 
 --- !u!1 &8805458
 GameObject:
   m_ObjectHideFlags: 0
@@ -9383,6 +9506,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 131142320}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &132504577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 132504578}
+  - component: {fileID: 132504579}
+  - component: {fileID: 132504580}
+  m_Layer: 0
+  m_Name: Backboard_6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &132504578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132504577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.41400003, z: -1.261242}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1829399391}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &132504579
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132504577}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10502813, y: 0.4134493, z: 0.54349416}
+  m_Center: {x: 0.10023388, y: 0.32588792, z: 0.63124204}
+--- !u!114 &132504580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132504577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 1
+  displayName: Panya Orta Sag
+  csvRegionName: Backboard_MiddleRight
+  hitObjectOverride: 
 --- !u!1001 &135705999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13094,6 +13287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 187619656}
   - component: {fileID: 187619657}
+  - component: {fileID: 187619658}
   m_Layer: 0
   m_Name: ShotSystems
   m_TagString: Untagged
@@ -13128,6 +13322,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fcec815c30ef943962b2c98712dd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShotLogger
+--- !u!114 &187619658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187619655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d8741e884f61e40a8eac4f29e36572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitMarkerFeedback
+  markerPrefab: {fileID: 7967616681331988820, guid: b9f462a9d4d78314dbd523067ff887b4, type: 3}
+  markerLifeTime: 2
+  spawnOffset: {x: 0, y: 0.03, z: 0}
 --- !u!1001 &187628328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17065,6 +17274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 249999455}
   - component: {fileID: 249999456}
+  - component: {fileID: 249999457}
   m_Layer: 0
   m_Name: Rim_15
   m_TagString: Rim
@@ -17108,6 +17318,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &249999457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249999454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 15"
+  csvRegionName: Rim_15
+  hitObjectOverride: 
 --- !u!1001 &251140926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20507,6 +20733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 316112489}
   - component: {fileID: 316112490}
+  - component: {fileID: 316112491}
   m_Layer: 0
   m_Name: Rim_10
   m_TagString: Rim
@@ -20550,6 +20777,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &316112491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316112488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 10"
+  csvRegionName: Rim_10
+  hitObjectOverride: 
 --- !u!1001 &317777717
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21448,6 +21691,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2016711159069217233, guid: 245242bfdf3f6ee489d153a316f38d10, type: 3}
   m_PrefabInstance: {fileID: 336242299}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &337385617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 337385618}
+  - component: {fileID: 337385619}
+  - component: {fileID: 337385620}
+  m_Layer: 0
+  m_Name: Backboard_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &337385618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337385617}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.00000011920929, y: 0, z: -1.261242}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1829399391}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &337385619
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337385617}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10502813, y: 0.4134493, z: 0.54349416}
+  m_Center: {x: 0.10023388, y: 0.32588792, z: 0.63124204}
+--- !u!114 &337385620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337385617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 1
+  displayName: Panya Sag Ust
+  csvRegionName: Backboard_TopRight
+  hitObjectOverride: 
 --- !u!1001 &338082652
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23573,6 +23886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 375540964}
   - component: {fileID: 375540965}
+  - component: {fileID: 375540966}
   m_Layer: 0
   m_Name: Rim_7
   m_TagString: Rim
@@ -23616,6 +23930,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &375540966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375540963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 07"
+  csvRegionName: Rim_07
+  hitObjectOverride: 
 --- !u!1001 &375819596
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29915,6 +30245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 477315212}
   - component: {fileID: 477315213}
+  - component: {fileID: 477315214}
   m_Layer: 0
   m_Name: Rim_19
   m_TagString: Rim
@@ -29958,6 +30289,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185008, y: 0.009411691, z: 0.26133406}
   m_Center: {x: 0.14889108, y: 0.5211949, z: -0.004960527}
+--- !u!114 &477315214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477315211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 19"
+  csvRegionName: Rim_19
+  hitObjectOverride: 
 --- !u!1 &479752342
 GameObject:
   m_ObjectHideFlags: 0
@@ -29968,6 +30315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 479752343}
   - component: {fileID: 479752344}
+  - component: {fileID: 479752345}
   m_Layer: 0
   m_Name: Rim_1
   m_TagString: Rim
@@ -30011,6 +30359,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &479752345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479752342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 01"
+  csvRegionName: Rim_01
+  hitObjectOverride: 
 --- !u!1001 &480257584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39108,6 +39472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 656181640}
   - component: {fileID: 656181641}
+  - component: {fileID: 656181642}
   m_Layer: 0
   m_Name: Rim_12
   m_TagString: Rim
@@ -39151,6 +39516,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &656181642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656181639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 12"
+  csvRegionName: Rim_12
+  hitObjectOverride: 
 --- !u!1001 &657082433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45317,6 +45698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 753456782}
   - component: {fileID: 753456783}
+  - component: {fileID: 753456784}
   m_Layer: 0
   m_Name: Rim_14
   m_TagString: Rim
@@ -45360,6 +45742,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &753456784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753456781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 14"
+  csvRegionName: Rim_14
+  hitObjectOverride: 
 --- !u!1001 &754102336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48436,6 +48834,7 @@ GameObject:
   m_Component:
   - component: {fileID: 812162822}
   - component: {fileID: 812162823}
+  - component: {fileID: 812162824}
   m_Layer: 0
   m_Name: Rim_13
   m_TagString: Rim
@@ -48479,6 +48878,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &812162824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812162821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 13"
+  csvRegionName: Rim_13
+  hitObjectOverride: 
 --- !u!1001 &812758812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49312,6 +49727,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4787411273203938010, guid: 07a06f81324700445a35e998241c90a0, type: 3}
   m_PrefabInstance: {fileID: 816704691}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &819112818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 819112819}
+  - component: {fileID: 819112820}
+  - component: {fileID: 819112821}
+  m_Layer: 0
+  m_Name: Backboard_4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &819112819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819112818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.414, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1829399391}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &819112820
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819112818}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10502813, y: 0.4134493, z: 0.54349416}
+  m_Center: {x: 0.10023388, y: 0.32588792, z: 0.63124204}
+--- !u!114 &819112821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819112818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 1
+  displayName: Panya Orta Sol
+  csvRegionName: Backboard_MiddleLeft
+  hitObjectOverride: 
 --- !u!1001 &820055837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49398,6 +49883,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 820055837}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &820622204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 820622205}
+  - component: {fileID: 820622206}
+  m_Layer: 6
+  m_Name: Wall_1
+  m_TagString: Floor
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &820622205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820622204}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -23.54, y: 0.388, z: 2.407}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1109745345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &820622206
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820622204}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 24.657928, y: 9.210299, z: 1}
+  m_Center: {x: 1.5290527, y: 4.1051493, z: 0}
 --- !u!1 &822180428
 GameObject:
   m_ObjectHideFlags: 0
@@ -60313,6 +60851,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988936843}
   m_CullTransparentMesh: 1
+--- !u!1 &991162150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 991162151}
+  - component: {fileID: 991162152}
+  - component: {fileID: 991162153}
+  m_Layer: 0
+  m_Name: Backboard_7
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &991162151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991162150}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.813, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1829399391}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &991162152
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991162150}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10502813, y: 0.4134493, z: 0.5058965}
+  m_Center: {x: 0.10023388, y: 0.32588792, z: 0.65004086}
+--- !u!114 &991162153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991162150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 1
+  displayName: Panya Sol Alt
+  csvRegionName: Backboard_BottomLeft
+  hitObjectOverride: 
 --- !u!1001 &995033131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62379,6 +62987,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2016711159069217233, guid: 245242bfdf3f6ee489d153a316f38d10, type: 3}
   m_PrefabInstance: {fileID: 1033241401}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1035000775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1035000776}
+  - component: {fileID: 1035000777}
+  - component: {fileID: 1035000778}
+  m_Layer: 0
+  m_Name: Backboard_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1035000776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035000775}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1829399391}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1035000777
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035000775}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10502813, y: 0.4134493, z: 0.7163093}
+  m_Center: {x: 0.10023388, y: 0.32588792, z: 0.5448344}
+--- !u!114 &1035000778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035000775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 1
+  displayName: Panya Orta Ust
+  csvRegionName: Backboard_TopCenter
+  hitObjectOverride: 
 --- !u!1001 &1037240273
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62620,6 +63298,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5322847893461129110, guid: c805d8566d46e064d8e6a0702294d709, type: 3}
+      propertyPath: m_TagString
+      value: Basketball
+      objectReference: {fileID: 0}
+    - target: {fileID: 5322847893461129110, guid: c805d8566d46e064d8e6a0702294d709, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -62851,6 +63533,7 @@ MonoBehaviour:
   ballSpawnPoint: {fileID: 974500336}
   shotResultUI: {fileID: 900466971}
   shotLogger: {fileID: 187619657}
+  hitMarkerFeedback: {fileID: 187619658}
   releaseSampleDelay: 0.02
   shotTimeout: 5
   respawnDelay: 2
@@ -66963,6 +67646,40 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 1106209156}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1109745344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1109745345}
+  m_Layer: 6
+  m_Name: Walls
+  m_TagString: Floor
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1109745345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109745344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 820622205}
+  - {fileID: 6431631}
+  - {fileID: 1169824708}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1110646771
 GameObject:
   m_ObjectHideFlags: 0
@@ -71394,6 +72111,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 1166472315}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1169824707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1169824708}
+  - component: {fileID: 1169824709}
+  m_Layer: 6
+  m_Name: Wall_3
+  m_TagString: Floor
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1169824708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169824707}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.7071079}
+  m_LocalPosition: {x: -34.000004, y: 0.388, z: 12.470947}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1109745345}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!65 &1169824709
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169824707}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 24.657928, y: 9.210299, z: 1}
+  m_Center: {x: 1.5290527, y: 4.1051493, z: 0}
 --- !u!1001 &1170219023
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73524,6 +74294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1206720041}
   - component: {fileID: 1206720042}
+  - component: {fileID: 1206720043}
   m_Layer: 0
   m_Name: Rim_5
   m_TagString: Rim
@@ -73567,6 +74338,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &1206720043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206720040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 05"
+  csvRegionName: Rim_05
+  hitObjectOverride: 
 --- !u!1001 &1207916722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76579,6 +77366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1256985944}
   - component: {fileID: 1256985945}
+  - component: {fileID: 1256985946}
   m_Layer: 0
   m_Name: Rim_2
   m_TagString: Rim
@@ -76622,6 +77410,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &1256985946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256985943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 02"
+  csvRegionName: Rim_02
+  hitObjectOverride: 
 --- !u!1001 &1257966695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81213,6 +82017,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 1327422431}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1328856541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1328856542}
+  - component: {fileID: 1328856543}
+  - component: {fileID: 1328856544}
+  m_Layer: 0
+  m_Name: Backboard_5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1328856542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328856541}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.41400003, z: -0.547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1829399391}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1328856543
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328856541}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10502813, y: 0.4134493, z: 0.7163093}
+  m_Center: {x: 0.10023388, y: 0.32588792, z: 0.5448344}
+--- !u!114 &1328856544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328856541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 1
+  displayName: Panya Orta
+  csvRegionName: Backboard_Center
+  hitObjectOverride: 
 --- !u!1001 &1329406961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83188,6 +84062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1357892483}
   - component: {fileID: 1357892484}
+  - component: {fileID: 1357892485}
   m_Layer: 0
   m_Name: Rim_3
   m_TagString: Rim
@@ -83231,6 +84106,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &1357892485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357892482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 03"
+  csvRegionName: Rim_03
+  hitObjectOverride: 
 --- !u!1001 &1358034567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90509,6 +91400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1451945331}
   - component: {fileID: 1451945332}
+  - component: {fileID: 1451945333}
   m_Layer: 0
   m_Name: Rim_9
   m_TagString: Rim
@@ -90552,6 +91444,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &1451945333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451945330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 09"
+  csvRegionName: Rim_09
+  hitObjectOverride: 
 --- !u!1 &1452205146
 GameObject:
   m_ObjectHideFlags: 0
@@ -91891,6 +92799,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2443415570672671583, guid: 239cb031b2a4ed44584174d3d79f9f7e, type: 3}
   m_PrefabInstance: {fileID: 1475821721}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1477632010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1477632011}
+  - component: {fileID: 1477632012}
+  - component: {fileID: 1477632013}
+  m_Layer: 0
+  m_Name: Backboard_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1477632011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477632010}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1829399391}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1477632012
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477632010}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10502813, y: 0.4134493, z: 0.54349416}
+  m_Center: {x: 0.10023388, y: 0.32588792, z: 0.63124204}
+--- !u!114 &1477632013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477632010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 1
+  displayName: Panya Sol Ust
+  csvRegionName: Backboard_TopLeft
+  hitObjectOverride: 
 --- !u!1001 &1483736062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100726,6 +101704,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1638643997}
   - component: {fileID: 1638643998}
+  - component: {fileID: 1638643999}
   m_Layer: 0
   m_Name: Rim_6
   m_TagString: Rim
@@ -100769,6 +101748,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &1638643999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638643996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 06"
+  csvRegionName: Rim_06
+  hitObjectOverride: 
 --- !u!1001 &1638654845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102507,6 +103502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1669512152}
   - component: {fileID: 1669512153}
+  - component: {fileID: 1669512154}
   m_Layer: 0
   m_Name: Rim_17
   m_TagString: Rim
@@ -102550,6 +103546,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &1669512154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669512151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 17"
+  csvRegionName: Rim_17
+  hitObjectOverride: 
 --- !u!1001 &1669955554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109574,6 +110586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1780430738}
   - component: {fileID: 1780430739}
+  - component: {fileID: 1780430740}
   m_Layer: 0
   m_Name: Rim_4
   m_TagString: Rim
@@ -109617,6 +110630,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &1780430740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780430737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 04"
+  csvRegionName: Rim_04
+  hitObjectOverride: 
 --- !u!1001 &1780582162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112781,7 +113810,15 @@ Transform:
   m_LocalPosition: {x: -1.468, y: 3.287, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1477632011}
+  - {fileID: 1035000776}
+  - {fileID: 337385618}
+  - {fileID: 819112819}
+  - {fileID: 1328856542}
+  - {fileID: 132504578}
+  - {fileID: 991162151}
+  - {fileID: 7339728}
   m_Father: {fileID: 369551902}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1829399392
@@ -112801,7 +113838,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.09946717, y: 1.2267768, z: 1.7997566}
   m_Center: {x: 0.10188569, y: -0.08052242, z: 0.000000012145522}
@@ -115848,6 +116885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1863808158}
   - component: {fileID: 1863808159}
+  - component: {fileID: 1863808160}
   m_Layer: 0
   m_Name: Rim_8
   m_TagString: Rim
@@ -115891,6 +116929,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &1863808160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863808157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 08"
+  csvRegionName: Rim_08
+  hitObjectOverride: 
 --- !u!1001 &1864410959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120408,6 +121462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1945932797}
   - component: {fileID: 1945932798}
+  - component: {fileID: 1945932799}
   m_Layer: 0
   m_Name: Rim_16
   m_TagString: Rim
@@ -120451,6 +121506,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &1945932799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945932796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 16"
+  csvRegionName: Rim_16
+  hitObjectOverride: 
 --- !u!1001 &1946322890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -121724,6 +122795,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1968968692}
   - component: {fileID: 1968968693}
+  - component: {fileID: 1968968694}
   m_Layer: 0
   m_Name: Rim_18
   m_TagString: Rim
@@ -121767,6 +122839,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185008, y: 0.13697919, z: 0.16003413}
   m_Center: {x: 0.14889011, y: 0.447682, z: -0.0049605393}
+--- !u!114 &1968968694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968968691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 18"
+  csvRegionName: Rim_18
+  hitObjectOverride: 
 --- !u!1001 &1969651025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128732,6 +129820,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2107355729}
   - component: {fileID: 2107355730}
+  - component: {fileID: 2107355731}
   m_Layer: 0
   m_Name: Rim_11
   m_TagString: Rim
@@ -128775,6 +129864,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10185006, y: 0.039085735, z: 0.15566279}
   m_Center: {x: 0.1488895, y: 0.398736, z: -0.0060539143}
+--- !u!114 &2107355731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107355728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e73af046f006a149849768d5f7ba5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHitRegion
+  surfaceType: 0
+  displayName: "\xC7ember B\xF6lge 11"
+  csvRegionName: Rim_11
+  hitObjectOverride: 
 --- !u!1001 &2107670652
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -132538,3 +133643,4 @@ SceneRoots:
   - {fileID: 1946679253}
   - {fileID: 2092982095}
   - {fileID: 1263104288}
+  - {fileID: 1109745345}

@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -7,6 +8,13 @@ public class ShotLogger : MonoBehaviour
 {
     private string currentFilePath = "";
     private string activePlayerName = "";
+    private string sessionTime = "";
+
+    private void Start()
+    {
+        EnsureLogFile(GetCurrentPlayerName());
+        Debug.Log("CSV Path: " + currentFilePath);
+    }
 
     public void LogShot(
         int shotId,
@@ -14,15 +22,20 @@ public class ShotLogger : MonoBehaviour
         float releaseAngle,
         bool isScore,
         string firstHitObject,
+        string hitRegion,
+        string firstHitColliderName,
+        Vector3 hitWorldPosition,
+        bool hasHitWorldPosition,
         string finalResult)
     {
         string playerName = GetCurrentPlayerName();
         EnsureLogFile(playerName);
 
-        string timestamp = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 
-        string englishHitObject = ConvertHitObjectToEnglish(firstHitObject);
-        string englishFinalResult = isScore ? "Score" : "Miss";
+        string hitWorldX = hasHitWorldPosition ? hitWorldPosition.x.ToString("F3", CultureInfo.InvariantCulture) : "";
+        string hitWorldY = hasHitWorldPosition ? hitWorldPosition.y.ToString("F3", CultureInfo.InvariantCulture) : "";
+        string hitWorldZ = hasHitWorldPosition ? hitWorldPosition.z.ToString("F3", CultureInfo.InvariantCulture) : "";
 
         string line =
             EscapeCsv(playerName) + "," +
@@ -31,25 +44,35 @@ public class ShotLogger : MonoBehaviour
             releaseSpeed.ToString("F3", CultureInfo.InvariantCulture) + "," +
             releaseAngle.ToString("F3", CultureInfo.InvariantCulture) + "," +
             isScore.ToString(CultureInfo.InvariantCulture) + "," +
-            EscapeCsv(englishHitObject) + "," +
-            EscapeCsv(englishFinalResult);
+            EscapeCsv(firstHitObject) + "," +
+            EscapeCsv(hitRegion) + "," +
+            EscapeCsv(firstHitColliderName) + "," +
+            hitWorldX + "," +
+            hitWorldY + "," +
+            hitWorldZ + "," +
+            EscapeCsv(finalResult);
 
         File.AppendAllText(currentFilePath, line + "\n", Encoding.UTF8);
-
         Debug.Log("Shot logged: " + currentFilePath);
     }
 
     private void EnsureLogFile(string playerName)
     {
+        if (string.IsNullOrWhiteSpace(playerName))
+            playerName = "UNKNOWN";
+
         if (!string.IsNullOrEmpty(currentFilePath) && activePlayerName == playerName)
             return;
 
         activePlayerName = playerName;
 
-        string sessionTime = System.DateTime.Now.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture);
-        string fileName = "basket_shot_log_" + playerName + "_" + sessionTime + ".csv";
+        if (string.IsNullOrEmpty(sessionTime))
+            sessionTime = DateTime.Now.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture);
 
-        currentFilePath = Path.Combine(Application.persistentDataPath, fileName);
+        string fileName = "basket_shot_log_" + playerName + "_" + sessionTime + ".csv";
+        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+
+        currentFilePath = Path.Combine(desktopPath, fileName);
 
         string header =
             "PlayerName," +
@@ -59,11 +82,19 @@ public class ShotLogger : MonoBehaviour
             "ReleaseAngleDeg," +
             "IsScore," +
             "FirstHitObject," +
+            "HitRegion," +
+            "FirstHitColliderName," +
+            "HitWorldX," +
+            "HitWorldY," +
+            "HitWorldZ," +
             "FinalResult";
 
-        File.WriteAllText(currentFilePath, header + "\n", Encoding.UTF8);
+        if (!File.Exists(currentFilePath))
+        {
+            File.WriteAllText(currentFilePath, header + "\n", Encoding.UTF8);
+        }
 
-        Debug.Log("New shot log file created: " + currentFilePath);
+        Debug.Log("Active CSV File: " + currentFilePath);
     }
 
     private string GetCurrentPlayerName()
@@ -72,82 +103,6 @@ public class ShotLogger : MonoBehaviour
             return "UNKNOWN";
 
         return PlayerSessionManager.Instance.GetSafePlayerNameForFile();
-    }
-
-    private string ConvertHitObjectToEnglish(string hitObject)
-    {
-        if (string.IsNullOrWhiteSpace(hitObject))
-            return "None";
-
-        string value = hitObject.Trim();
-
-        // Turkish values from older scripts
-        if (value == "Pota Çemberi")
-            return "Rim";
-
-        if (value == "Pota Cemberi")
-            return "Rim";
-
-        if (value == "Panya")
-            return "Backboard";
-
-        if (value == "Zemin")
-            return "Floor";
-
-        if (value == "Temassız")
-            return "NoContact";
-
-        if (value == "Temassiz")
-            return "NoContact";
-
-        if (value == "Yok")
-            return "None";
-
-        // English values already
-        if (value == "Rim")
-            return "Rim";
-
-        if (value == "Backboard")
-            return "Backboard";
-
-        if (value == "Floor")
-            return "Floor";
-
-        if (value == "NoContact")
-            return "NoContact";
-
-        return ConvertToEnglishAscii(value);
-    }
-
-    private string ConvertToEnglishAscii(string input)
-    {
-        if (string.IsNullOrWhiteSpace(input))
-            return "None";
-
-        string text = input.Trim();
-
-        text = text.Replace("ç", "c").Replace("Ç", "C");
-        text = text.Replace("ğ", "g").Replace("Ğ", "G");
-        text = text.Replace("ı", "i").Replace("İ", "I");
-        text = text.Replace("ö", "o").Replace("Ö", "O");
-        text = text.Replace("ş", "s").Replace("Ş", "S");
-        text = text.Replace("ü", "u").Replace("Ü", "U");
-
-        string normalized = text.Normalize(NormalizationForm.FormD);
-        StringBuilder builder = new StringBuilder();
-
-        foreach (char c in normalized)
-        {
-            UnicodeCategory category = CharUnicodeInfo.GetUnicodeCategory(c);
-
-            if (category == UnicodeCategory.NonSpacingMark)
-                continue;
-
-            if (c <= 127)
-                builder.Append(c);
-        }
-
-        return builder.ToString();
     }
 
     private string EscapeCsv(string value)
