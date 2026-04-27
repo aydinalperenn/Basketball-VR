@@ -1,5 +1,8 @@
 using UnityEngine;
+using UnityEngine.XR;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+
 
 public class BallShotTracker : MonoBehaviour
 {
@@ -24,6 +27,15 @@ public class BallShotTracker : MonoBehaviour
     [SerializeField] private HitMarkerFeedback hitMarkerFeedback;
     [SerializeField] private ShotFeedbackEffects shotFeedbackEffects;
     [SerializeField] private ShotPointManager shotPointManager;
+
+    [Header("A Tuşu ile Acil Respawn")]
+    [SerializeField] private bool useRightControllerAButtonForRespawn = true;
+
+    [Tooltip("A tuşuna kaç saniye basılı tutulursa top respawn olsun?")]
+    [SerializeField] private float respawnHoldDuration = 0.6f;
+
+    [Header("Teleport Noktası Değişince Topu Getirme")]
+    [SerializeField] private bool respawnBallWhenShotPointChanges = true;
 
     [Header("Ayarlar")]
     [SerializeField] private float releaseSampleDelay = 0.02f;
@@ -59,6 +71,10 @@ public class BallShotTracker : MonoBehaviour
     private bool hasPendingHit;
     private HitCandidate pendingHit;
 
+    private string lastShotPointName = "";
+    private float respawnButtonHoldTimer = 0f;
+    private bool respawnTriggeredThisHold = false;
+
     private void Awake()
     {
         if (ballRigidbody == null)
@@ -74,9 +90,14 @@ public class BallShotTracker : MonoBehaviour
         startRotation = transform.rotation;
     }
 
+
+
     private void Update()
     {
         bool isHeld = grabInteractable != null && grabInteractable.isSelected;
+
+        UpdateEmergencyRespawnInput();
+        UpdateShotPointChangeRespawn(isHeld);
 
         if (!wasHeldLastFrame && isHeld)
         {
@@ -124,6 +145,109 @@ public class BallShotTracker : MonoBehaviour
                 CaptureReleaseDataAndStartShot();
             }
         }
+    }
+
+    private void UpdateEmergencyRespawnInput()
+    {
+        if (!useRightControllerAButtonForRespawn)
+            return;
+
+        bool isPressed = IsRightControllerAButtonPressed();
+
+        if (isPressed)
+        {
+            respawnButtonHoldTimer += Time.deltaTime;
+
+            if (!respawnTriggeredThisHold && respawnButtonHoldTimer >= respawnHoldDuration)
+            {
+                respawnTriggeredThisHold = true;
+                ForceCancelCurrentShotAndRespawn();
+            }
+        }
+        else
+        {
+            respawnButtonHoldTimer = 0f;
+            respawnTriggeredThisHold = false;
+        }
+    }
+    private bool IsRightControllerAButtonPressed()
+    {
+        UnityEngine.XR.InputDevice rightHandDevice =
+            UnityEngine.XR.InputDevices.GetDeviceAtXRNode(UnityEngine.XR.XRNode.RightHand);
+
+        if (!rightHandDevice.isValid)
+            return false;
+
+        bool primaryButtonPressed = false;
+
+        if (rightHandDevice.TryGetFeatureValue(
+            UnityEngine.XR.CommonUsages.primaryButton,
+            out primaryButtonPressed))
+        {
+            return primaryButtonPressed;
+        }
+
+        return false;
+    }
+
+    private void UpdateShotPointChangeRespawn(bool isHeld)
+    {
+        if (!respawnBallWhenShotPointChanges)
+            return;
+
+        string currentPointName = GetCurrentShotPointName();
+
+        if (string.IsNullOrWhiteSpace(currentPointName))
+            return;
+
+        if (lastShotPointName == "")
+        {
+            lastShotPointName = currentPointName;
+            return;
+        }
+
+        if (currentPointName == lastShotPointName)
+            return;
+
+        lastShotPointName = currentPointName;
+
+        // Top eldeyken teleport değiştiyse topu çekme.
+        // Oyuncu topu tutarken yer değiştirmek isterse top elinde kalsın.
+        if (isHeld)
+            return;
+
+        // Aktif atış varsa otomatik bozmayalım.
+        // Hata durumunda A tuşu ile manuel respawn yapılacak.
+        if (shotActive || releasePending)
+            return;
+
+        RespawnBall();
+    }
+
+    private void ForceCancelCurrentShotAndRespawn()
+    {
+        // Bu bir hata kurtarma hareketi.
+        // CSV'ye kayıt atılmayacak, UI temizlenecek, atış iptal edilecek.
+        releasePending = false;
+        releaseWaitTimer = 0f;
+
+        shotActive = false;
+        shotFinished = false;
+        scored = false;
+        waitingRespawn = false;
+
+        shotTimer = 0f;
+        respawnTimer = 0f;
+
+        firstHitCommitted = false;
+        hasPendingHit = false;
+
+        if (shotResultUI != null)
+        {
+            shotResultUI.ClearUI();
+        }
+
+        RespawnBall();
     }
 
     private void PrepareForNewAttempt()
@@ -418,6 +542,17 @@ public class BallShotTracker : MonoBehaviour
         return "UnknownPoint";
     }
 
+    private Transform GetCurrentBallSpawnTransform()
+    {
+        if (shotPointManager != null)
+            return shotPointManager.GetCurrentBallSpawnTransform();
+
+        if (ShotPointManager.Instance != null)
+            return ShotPointManager.Instance.GetCurrentBallSpawnTransform();
+
+        return null;
+    }
+
     private void RespawnBall()
     {
         waitingRespawn = false;
@@ -434,7 +569,13 @@ public class BallShotTracker : MonoBehaviour
         ballRigidbody.linearVelocity = Vector3.zero;
         ballRigidbody.angularVelocity = Vector3.zero;
 
-        if (ballSpawnPoint != null)
+        Transform currentSpawn = GetCurrentBallSpawnTransform();
+
+        if (currentSpawn != null)
+        {
+            transform.SetPositionAndRotation(currentSpawn.position, currentSpawn.rotation);
+        }
+        else if (ballSpawnPoint != null)
         {
             transform.SetPositionAndRotation(ballSpawnPoint.position, ballSpawnPoint.rotation);
         }

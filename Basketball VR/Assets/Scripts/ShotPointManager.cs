@@ -8,9 +8,18 @@ public class ShotPointManager : MonoBehaviour
     [Serializable]
     public class ShotPoint
     {
+        [Header("Atýþ Noktasý Bilgisi")]
         public string pointName = "ShotPoint";
+
+        [Tooltip("Teleport noktasýnýn transformu.")]
         public Transform pointTransform;
+
+        [Tooltip("Oyuncu bu mesafe içindeyse bu atýþ noktasý aktif sayýlýr.")]
         public float activationRadius = 1.5f;
+
+        [Header("Top Spawn Noktasý")]
+        [Tooltip("Oyuncu bu noktaya teleport olunca topun geleceði yer.")]
+        public Transform ballSpawnTransform;
     }
 
     [Header("Oyuncu Referansý")]
@@ -24,6 +33,7 @@ public class ShotPointManager : MonoBehaviour
     [SerializeField] private string unknownPointName = "UnknownPoint";
 
     private string currentShotPointName = "UnknownPoint";
+    private Transform currentBallSpawnTransform;
 
     private void Awake()
     {
@@ -35,6 +45,7 @@ public class ShotPointManager : MonoBehaviour
         }
 
         currentShotPointName = unknownPointName;
+        currentBallSpawnTransform = null;
     }
 
     private void Update()
@@ -50,16 +61,23 @@ public class ShotPointManager : MonoBehaviour
         return currentShotPointName;
     }
 
+    public Transform GetCurrentBallSpawnTransform()
+    {
+        return currentBallSpawnTransform;
+    }
+
     private void UpdateCurrentShotPoint()
     {
         if (playerReference == null || shotPoints == null || shotPoints.Length == 0)
         {
             currentShotPointName = unknownPointName;
+            currentBallSpawnTransform = null;
             return;
         }
 
         float bestDistanceSqr = float.MaxValue;
         string bestName = unknownPointName;
+        Transform bestBallSpawn = null;
         bool foundPoint = false;
 
         for (int i = 0; i < shotPoints.Length; i++)
@@ -75,14 +93,25 @@ public class ShotPointManager : MonoBehaviour
             if (distanceSqr <= radius * radius && distanceSqr < bestDistanceSqr)
             {
                 bestDistanceSqr = distanceSqr;
+
                 bestName = string.IsNullOrWhiteSpace(point.pointName)
                     ? point.pointTransform.name
                     : point.pointName;
 
+                bestBallSpawn = point.ballSpawnTransform;
                 foundPoint = true;
             }
         }
 
-        currentShotPointName = foundPoint ? bestName : unknownPointName;
+        if (foundPoint)
+        {
+            currentShotPointName = bestName;
+            currentBallSpawnTransform = bestBallSpawn;
+        }
+        else
+        {
+            currentShotPointName = unknownPointName;
+            currentBallSpawnTransform = null;
+        }
     }
 }

@@ -6428,6 +6428,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 96201017}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &96351251
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 96351252}
+  m_Layer: 0
+  m_Name: BallSpawnPoint_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &96351252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96351251}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -26.464, y: 0.041, z: 13.036}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &96579150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8510,6 +8541,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 114627024}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &114645326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 114645327}
+  m_Layer: 0
+  m_Name: BallSpawnPoint_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &114645327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114645326}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -18, y: 0.041, z: 13}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &116056856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68668,6 +68730,9 @@ MonoBehaviour:
   hitMarkerFeedback: {fileID: 187619658}
   shotFeedbackEffects: {fileID: 817258277}
   shotPointManager: {fileID: 1504032958}
+  respawnButtonAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  respawnHoldDuration: 0.6
+  respawnBallWhenShotPointChanges: 1
   releaseSampleDelay: 0.02
   shotTimeout: 5
   respawnDelay: 2
@@ -99397,12 +99462,15 @@ MonoBehaviour:
   - pointName: FreeThrow
     pointTransform: {fileID: 1946679253}
     activationRadius: 1.5
+    ballSpawnTransform: {fileID: 974500336}
   - pointName: LeftAngle
     pointTransform: {fileID: 1263104288}
     activationRadius: 1.5
+    ballSpawnTransform: {fileID: 114645327}
   - pointName: RightAngle
     pointTransform: {fileID: 2092982095}
     activationRadius: 1.5
+    ballSpawnTransform: {fileID: 96351252}
   unknownPointName: UnknownPoint
 --- !u!1001 &1504299370
 PrefabInstance:
@@ -138930,6 +138998,8 @@ SceneRoots:
   - {fileID: 14439110}
   - {fileID: 1946679253}
   - {fileID: 1263104288}
+  - {fileID: 114645327}
   - {fileID: 2092982095}
+  - {fileID: 96351252}
   - {fileID: 1109745345}
   - {fileID: 817258278}
