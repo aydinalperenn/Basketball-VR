@@ -22,6 +22,8 @@ public class BallShotTracker : MonoBehaviour
     [SerializeField] private ShotResultUI shotResultUI;
     [SerializeField] private ShotLogger shotLogger;
     [SerializeField] private HitMarkerFeedback hitMarkerFeedback;
+    [SerializeField] private ShotFeedbackEffects shotFeedbackEffects;
+    [SerializeField] private ShotPointManager shotPointManager;
 
     [Header("Ayarlar")]
     [SerializeField] private float releaseSampleDelay = 0.02f;
@@ -64,6 +66,9 @@ public class BallShotTracker : MonoBehaviour
 
         if (grabInteractable == null)
             grabInteractable = GetComponent<XRGrabInteractable>();
+
+        if (shotPointManager == null)
+            shotPointManager = ShotPointManager.Instance;
 
         startPosition = transform.position;
         startRotation = transform.rotation;
@@ -165,7 +170,6 @@ public class BallShotTracker : MonoBehaviour
         releasePending = false;
         releaseWaitTimer = 0f;
 
-        // Eğer Unity sürümünde velocity kullanılıyorsa bunu velocity yap
         Vector3 velocity = ballRigidbody.linearVelocity;
 
         releaseSpeed = velocity.magnitude;
@@ -204,7 +208,6 @@ public class BallShotTracker : MonoBehaviour
         }
         else
         {
-            // Region scripti yoksa ama zeminse fallback
             if (HasTagInParents(collision.collider.transform, "Floor"))
             {
                 hitObject = "Zemin";
@@ -241,7 +244,6 @@ public class BallShotTracker : MonoBehaviour
             }
             else
             {
-                // Aynı frame içinde birden fazla collider geldiyse top merkezine en yakın olanı al
                 if (candidate.frameNumber == pendingHit.frameNumber)
                 {
                     if (candidate.distanceToBallCenterSqr < pendingHit.distanceToBallCenterSqr)
@@ -252,7 +254,6 @@ public class BallShotTracker : MonoBehaviour
             }
         }
 
-        // Eğer zemin teması geldiyse atışı kaçtı olarak bitir
         if (!scored && hitObject == "Zemin")
         {
             CommitPendingHitNow();
@@ -289,7 +290,6 @@ public class BallShotTracker : MonoBehaviour
         if (firstHitCommitted || !hasPendingHit)
             return;
 
-        // Bir frame geçince pending hit'i kesinleştir
         if (Time.frameCount > pendingHit.frameNumber)
         {
             CommitPendingHitNow();
@@ -355,6 +355,7 @@ public class BallShotTracker : MonoBehaviour
 
         string displayHitObject = firstHitObject == "Yok" ? "Temassız" : firstHitObject;
         string displayHitRegion = firstHitRegionDisplay == "Yok" ? displayHitObject : firstHitRegionDisplay;
+        string csvHitRegion = firstHitRegionCsv == "Yok" ? displayHitObject : firstHitRegionCsv;
 
         if (shotResultUI != null)
         {
@@ -367,6 +368,24 @@ public class BallShotTracker : MonoBehaviour
             );
         }
 
+        if (shotFeedbackEffects != null)
+        {
+            if (isScore)
+            {
+                shotFeedbackEffects.PlayScoreEffect();
+            }
+            else
+            {
+                shotFeedbackEffects.PlayMissEffect(
+                    displayHitRegion,
+                    firstHitWorldPosition,
+                    hasFirstHitWorldPosition
+                );
+            }
+        }
+
+        string shotPointName = GetCurrentShotPointName();
+
         if (shotLogger != null)
         {
             shotLogger.LogShot(
@@ -374,8 +393,9 @@ public class BallShotTracker : MonoBehaviour
                 releaseSpeed,
                 releaseAngle,
                 isScore,
+                shotPointName,
                 displayHitObject,
-                firstHitRegionCsv == "Yok" ? displayHitObject : firstHitRegionCsv,
+                csvHitRegion,
                 firstHitColliderName,
                 firstHitWorldPosition,
                 hasFirstHitWorldPosition,
@@ -385,6 +405,17 @@ public class BallShotTracker : MonoBehaviour
 
         waitingRespawn = true;
         respawnTimer = 0f;
+    }
+
+    private string GetCurrentShotPointName()
+    {
+        if (shotPointManager != null)
+            return shotPointManager.GetCurrentShotPointName();
+
+        if (ShotPointManager.Instance != null)
+            return ShotPointManager.Instance.GetCurrentShotPointName();
+
+        return "UnknownPoint";
     }
 
     private void RespawnBall()

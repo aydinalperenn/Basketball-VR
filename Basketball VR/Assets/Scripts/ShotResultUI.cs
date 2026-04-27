@@ -36,7 +36,6 @@ public class ShotResultUI : MonoBehaviour
         }
     }
 
-    // Eski BallShotTracker çağrıları bozulmasın diye overload bırakıyoruz.
     public void ShowShotResult(float speed, float angle, bool isScore, string firstHitObject)
     {
         ShowShotResult(speed, angle, isScore, firstHitObject, firstHitObject);

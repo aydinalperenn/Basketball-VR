@@ -7,13 +7,11 @@ using UnityEngine;
 public class ShotLogger : MonoBehaviour
 {
     private string currentFilePath = "";
-    private string activePlayerName = "";
-    private string sessionTime = "";
 
     private void Start()
     {
-        EnsureLogFile(GetCurrentPlayerName());
-        Debug.Log("CSV Path: " + currentFilePath);
+        EnsureLogFile();
+        Debug.Log("Active CSV File: " + currentFilePath);
     }
 
     public void LogShot(
@@ -21,6 +19,7 @@ public class ShotLogger : MonoBehaviour
         float releaseSpeed,
         float releaseAngle,
         bool isScore,
+        string shotPointName,
         string firstHitObject,
         string hitRegion,
         string firstHitColliderName,
@@ -28,9 +27,9 @@ public class ShotLogger : MonoBehaviour
         bool hasHitWorldPosition,
         string finalResult)
     {
-        string playerName = GetCurrentPlayerName();
-        EnsureLogFile(playerName);
+        EnsureLogFile();
 
+        string playerName = GetCurrentPlayerName();
         string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 
         string hitWorldX = hasHitWorldPosition ? hitWorldPosition.x.ToString("F3", CultureInfo.InvariantCulture) : "";
@@ -39,6 +38,7 @@ public class ShotLogger : MonoBehaviour
 
         string line =
             EscapeCsv(playerName) + "," +
+            EscapeCsv(shotPointName) + "," +
             shotId.ToString(CultureInfo.InvariantCulture) + "," +
             EscapeCsv(timestamp) + "," +
             releaseSpeed.ToString("F3", CultureInfo.InvariantCulture) + "," +
@@ -53,48 +53,101 @@ public class ShotLogger : MonoBehaviour
             EscapeCsv(finalResult);
 
         File.AppendAllText(currentFilePath, line + "\n", Encoding.UTF8);
+
         Debug.Log("Shot logged: " + currentFilePath);
     }
 
-    private void EnsureLogFile(string playerName)
+    // Önceki sürümle uyumluluk için.
+    public void LogShot(
+        int shotId,
+        float releaseSpeed,
+        float releaseAngle,
+        bool isScore,
+        string firstHitObject,
+        string hitRegion,
+        string firstHitColliderName,
+        Vector3 hitWorldPosition,
+        bool hasHitWorldPosition,
+        string finalResult)
     {
-        if (string.IsNullOrWhiteSpace(playerName))
-            playerName = "UNKNOWN";
+        string shotPointName = GetCurrentShotPointName();
 
-        if (!string.IsNullOrEmpty(currentFilePath) && activePlayerName == playerName)
+        LogShot(
+            shotId,
+            releaseSpeed,
+            releaseAngle,
+            isScore,
+            shotPointName,
+            firstHitObject,
+            hitRegion,
+            firstHitColliderName,
+            hitWorldPosition,
+            hasHitWorldPosition,
+            finalResult
+        );
+    }
+
+    // En eski sürümle uyumluluk için.
+    public void LogShot(
+        int shotId,
+        float releaseSpeed,
+        float releaseAngle,
+        bool isScore,
+        string firstHitObject,
+        string finalResult)
+    {
+        string shotPointName = GetCurrentShotPointName();
+
+        LogShot(
+            shotId,
+            releaseSpeed,
+            releaseAngle,
+            isScore,
+            shotPointName,
+            firstHitObject,
+            firstHitObject,
+            "",
+            Vector3.zero,
+            false,
+            finalResult
+        );
+    }
+
+    private void EnsureLogFile()
+    {
+        if (!string.IsNullOrEmpty(currentFilePath))
             return;
 
-        activePlayerName = playerName;
+        string fileName = "basket_shot_log.csv";
 
-        if (string.IsNullOrEmpty(sessionTime))
-            sessionTime = DateTime.Now.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture);
+#if UNITY_EDITOR
+        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+#else
+        string folderPath = Application.persistentDataPath;
+#endif
 
-        string fileName = "basket_shot_log_" + playerName + "_" + sessionTime + ".csv";
-        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-
-        currentFilePath = Path.Combine(desktopPath, fileName);
-
-        string header =
-            "PlayerName," +
-            "ShotId," +
-            "Timestamp," +
-            "ReleaseSpeedMS," +
-            "ReleaseAngleDeg," +
-            "IsScore," +
-            "FirstHitObject," +
-            "HitRegion," +
-            "FirstHitColliderName," +
-            "HitWorldX," +
-            "HitWorldY," +
-            "HitWorldZ," +
-            "FinalResult";
+        currentFilePath = Path.Combine(folderPath, fileName);
 
         if (!File.Exists(currentFilePath))
         {
+            string header =
+                "PlayerName," +
+                "ShotPointName," +
+                "ShotId," +
+                "Timestamp," +
+                "ReleaseSpeedMS," +
+                "ReleaseAngleDeg," +
+                "IsScore," +
+                "FirstHitObject," +
+                "HitRegion," +
+                "FirstHitColliderName," +
+                "HitWorldX," +
+                "HitWorldY," +
+                "HitWorldZ," +
+                "FinalResult";
+
             File.WriteAllText(currentFilePath, header + "\n", Encoding.UTF8);
         }
-
-        Debug.Log("Active CSV File: " + currentFilePath);
     }
 
     private string GetCurrentPlayerName()
@@ -103,6 +156,14 @@ public class ShotLogger : MonoBehaviour
             return "UNKNOWN";
 
         return PlayerSessionManager.Instance.GetSafePlayerNameForFile();
+    }
+
+    private string GetCurrentShotPointName()
+    {
+        if (ShotPointManager.Instance == null)
+            return "UnknownPoint";
+
+        return ShotPointManager.Instance.GetCurrentShotPointName();
     }
 
     private string EscapeCsv(string value)
