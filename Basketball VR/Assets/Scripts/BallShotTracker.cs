@@ -296,6 +296,18 @@ public class BallShotTracker : MonoBehaviour
 
         Vector3 velocity = ballRigidbody.linearVelocity;
 
+        float speedMultiplier = 1f;
+
+        if (BallSpeedSettings.Instance != null)
+        {
+            speedMultiplier = BallSpeedSettings.Instance.CurrentMultiplier;
+        }
+
+        // Topun elden çıktıktan sonraki hızını oyun içi ayara göre çarpıyoruz.
+        velocity *= speedMultiplier;
+        ballRigidbody.linearVelocity = velocity;
+
+        // UI ve CSV'ye ayarlanmış gerçek hız yazılır.
         releaseSpeed = velocity.magnitude;
         releaseAngle = CalculateReleaseAngle(velocity);
 
