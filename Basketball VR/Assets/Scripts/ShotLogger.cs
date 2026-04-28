@@ -121,9 +121,11 @@ public class ShotLogger : MonoBehaviour
         string fileName = "basket_shot_log.csv";
 
 #if UNITY_EDITOR
+        // Unity Editor'da çalýþýrken CSV masaüstüne yazýlýr.
         string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 #else
-        string folderPath = Application.persistentDataPath;
+    // VR / Quest build alýnca CSV uygulamanýn kalýcý veri klasörüne yazýlýr.
+    string folderPath = Application.persistentDataPath;
 #endif
 
         currentFilePath = Path.Combine(folderPath, fileName);
@@ -148,6 +150,8 @@ public class ShotLogger : MonoBehaviour
 
             File.WriteAllText(currentFilePath, header + "\n", Encoding.UTF8);
         }
+
+        Debug.Log("Active CSV File: " + currentFilePath);
     }
 
     private string GetCurrentPlayerName()
