@@ -68730,7 +68730,7 @@ MonoBehaviour:
   hitMarkerFeedback: {fileID: 187619658}
   shotFeedbackEffects: {fileID: 817258277}
   shotPointManager: {fileID: 1504032958}
-  useRightControllerAButtonForRespawn: 1
+  respawnButtonAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   respawnHoldDuration: 0.6
   respawnBallWhenShotPointChanges: 1
   releaseSampleDelay: 0.02
