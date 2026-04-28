@@ -1,0 +1,10 @@
+# ninja log v5
+26	2076	7990828718554254	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	599dd3c281175561
+10	2125	7990828718947798	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	692162402236beda
+91	2138	7990828719171406	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	2b56eeac3ad354e8
+81	2167	7990828719513728	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	6ffbe81e4f15fb02
+18	2227	7990828720088198	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	6917eeb5e844cb6e
+100	2325	7990828721055627	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	1b165627cc47851
+72	2611	7990828723897561	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	73261d85e0d69697
+0	2738	7990828725151236	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	6611a04bee816e7d
+2739	2892	7990828726733465	D:/Projeler/Unity/Basketball-VR/Basketball VR/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5k34b715/obj/arm64-v8a/libgame.so	1424aab43dc53dd
